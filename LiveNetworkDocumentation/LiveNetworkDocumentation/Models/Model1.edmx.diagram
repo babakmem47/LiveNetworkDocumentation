@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="085f6228ed1e44a0b65bc440c04d0bc7" Name="Diagram1">
+        <EntityTypeShape EntityType="LiveNetworkDocumentationModel.KhadamatMashiniPersonnel" Width="1.5" PointX="9.375" PointY="4" />
+        <EntityTypeShape EntityType="LiveNetworkDocumentationModel.Manategh" Width="1.5" PointX="4.5" PointY="1.875" />
+        <EntityTypeShape EntityType="LiveNetworkDocumentationModel.Semat" Width="1.5" PointX="5.875" PointY="4.75" />
+        <EntityTypeShape EntityType="LiveNetworkDocumentationModel.VoipLine" Width="1.5" PointX="7.5" PointY="1.25" />
+        <AssociationConnector Association="LiveNetworkDocumentationModel.FK_KhadamatMashiniPersonnels_Manateghs" />
+        <AssociationConnector Association="LiveNetworkDocumentationModel.FK_KhadamatMashiniPersonnels_Semats" />
+        <AssociationConnector Association="LiveNetworkDocumentationModel.FK_VoipLines_Manateghs" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

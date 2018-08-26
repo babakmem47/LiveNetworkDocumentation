@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LiveNetworkDocumentationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="KhadamatMashiniPersonnels">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SematId" Type="tinyint" />
+          <Property Name="TelDakheli" Type="nchar" MaxLength="20" />
+          <Property Name="TelMostaghim" Type="nchar" MaxLength="40" />
+          <Property Name="Mobile" Type="nchar" MaxLength="11" />
+          <Property Name="ManateghId" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="Manateghs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Shakhes" Type="tinyint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CityCenter" Type="nvarchar" MaxLength="25" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="PreTelCode" Type="varchar" MaxLength="4" />
+        </EntityType>
+        <EntityType Name="Semats">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VoipLines">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileNumber" Type="nchar" MaxLength="10" />
+          <Property Name="Vlan" Type="int" />
+          <Property Name="HaveVlan" Type="bit" Nullable="false" />
+          <Property Name="IpWanMantagheSide" Type="nchar" MaxLength="15" Nullable="false" />
+          <Property Name="IsPinged" Type="bit" Nullable="false" />
+          <Property Name="DateRecievedOnFiberInSite" Type="date" />
+          <Property Name="DateCompletelyOperated" Type="datetime" />
+          <Property Name="LetterNumber" Type="nchar" MaxLength="13" />
+          <Property Name="LetterId" Type="nchar" MaxLength="7" />
+          <Property Name="ManateghId" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_KhadamatMashiniPersonnels_Manateghs">
+          <End Role="Manateghs" Type="Self.Manateghs" Multiplicity="0..1" />
+          <End Role="KhadamatMashiniPersonnels" Type="Self.KhadamatMashiniPersonnels" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manateghs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="KhadamatMashiniPersonnels">
+              <PropertyRef Name="ManateghId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KhadamatMashiniPersonnels_Semats">
+          <End Role="Semats" Type="Self.Semats" Multiplicity="0..1" />
+          <End Role="KhadamatMashiniPersonnels" Type="Self.KhadamatMashiniPersonnels" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Semats">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="KhadamatMashiniPersonnels">
+              <PropertyRef Name="SematId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VoipLines_Manateghs">
+          <End Role="Manateghs" Type="Self.Manateghs" Multiplicity="1" />
+          <End Role="VoipLines" Type="Self.VoipLines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manateghs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VoipLines">
+              <PropertyRef Name="ManateghId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LiveNetworkDocumentationModelStoreContainer">
+          <EntitySet Name="KhadamatMashiniPersonnels" EntityType="Self.KhadamatMashiniPersonnels" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Manateghs" EntityType="Self.Manateghs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Semats" EntityType="Self.Semats" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VoipLines" EntityType="Self.VoipLines" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_KhadamatMashiniPersonnels_Manateghs" Association="Self.FK_KhadamatMashiniPersonnels_Manateghs">
+            <End Role="Manateghs" EntitySet="Manateghs" />
+            <End Role="KhadamatMashiniPersonnels" EntitySet="KhadamatMashiniPersonnels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KhadamatMashiniPersonnels_Semats" Association="Self.FK_KhadamatMashiniPersonnels_Semats">
+            <End Role="Semats" EntitySet="Semats" />
+            <End Role="KhadamatMashiniPersonnels" EntitySet="KhadamatMashiniPersonnels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VoipLines_Manateghs" Association="Self.FK_VoipLines_Manateghs">
+            <End Role="Manateghs" EntitySet="Manateghs" />
+            <End Role="VoipLines" EntitySet="VoipLines" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LiveNetworkDocumentationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="LiveNetworkDocumentationEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="KhadamatMashiniPersonnels" EntityType="LiveNetworkDocumentationModel.KhadamatMashiniPersonnel" />
+          <EntitySet Name="Manateghs" EntityType="LiveNetworkDocumentationModel.Manategh" />
+          <EntitySet Name="Semats" EntityType="LiveNetworkDocumentationModel.Semat" />
+          <EntitySet Name="VoipLines" EntityType="LiveNetworkDocumentationModel.VoipLine" />
+          <AssociationSet Name="FK_KhadamatMashiniPersonnels_Manateghs" Association="LiveNetworkDocumentationModel.FK_KhadamatMashiniPersonnels_Manateghs">
+            <End Role="Manategh" EntitySet="Manateghs" />
+            <End Role="KhadamatMashiniPersonnel" EntitySet="KhadamatMashiniPersonnels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KhadamatMashiniPersonnels_Semats" Association="LiveNetworkDocumentationModel.FK_KhadamatMashiniPersonnels_Semats">
+            <End Role="Semat" EntitySet="Semats" />
+            <End Role="KhadamatMashiniPersonnel" EntitySet="KhadamatMashiniPersonnels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VoipLines_Manateghs" Association="LiveNetworkDocumentationModel.FK_VoipLines_Manateghs">
+            <End Role="Manategh" EntitySet="Manateghs" />
+            <End Role="VoipLine" EntitySet="VoipLines" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="KhadamatMashiniPersonnel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SematId" Type="Byte" />
+          <Property Name="TelDakheli" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="TelMostaghim" Type="String" MaxLength="40" FixedLength="true" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="ManateghId" Type="Byte" />
+          <NavigationProperty Name="Manategh" Relationship="LiveNetworkDocumentationModel.FK_KhadamatMashiniPersonnels_Manateghs" FromRole="KhadamatMashiniPersonnel" ToRole="Manategh" />
+          <NavigationProperty Name="Semat" Relationship="LiveNetworkDocumentationModel.FK_KhadamatMashiniPersonnels_Semats" FromRole="KhadamatMashiniPersonnel" ToRole="Semat" />
+        </EntityType>
+        <EntityType Name="Manategh">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Shakhes" Type="Byte" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CityCenter" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PreTelCode" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="KhadamatMashiniPersonnels" Relationship="LiveNetworkDocumentationModel.FK_KhadamatMashiniPersonnels_Manateghs" FromRole="Manategh" ToRole="KhadamatMashiniPersonnel" />
+          <NavigationProperty Name="VoipLines" Relationship="LiveNetworkDocumentationModel.FK_VoipLines_Manateghs" FromRole="Manategh" ToRole="VoipLine" />
+        </EntityType>
+        <EntityType Name="Semat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="KhadamatMashiniPersonnels" Relationship="LiveNetworkDocumentationModel.FK_KhadamatMashiniPersonnels_Semats" FromRole="Semat" ToRole="KhadamatMashiniPersonnel" />
+        </EntityType>
+        <EntityType Name="VoipLine">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Vlan" Type="Int32" />
+          <Property Name="HaveVlan" Type="Boolean" Nullable="false" />
+          <Property Name="IpWanMantagheSide" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="IsPinged" Type="Boolean" Nullable="false" />
+          <Property Name="DateRecievedOnFiberInSite" Type="DateTime" Precision="0" />
+          <Property Name="DateCompletelyOperated" Type="DateTime" Precision="3" />
+          <Property Name="LetterNumber" Type="String" MaxLength="13" FixedLength="true" Unicode="true" />
+          <Property Name="LetterId" Type="String" MaxLength="7" FixedLength="true" Unicode="true" />
+          <Property Name="ManateghId" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Manategh" Relationship="LiveNetworkDocumentationModel.FK_VoipLines_Manateghs" FromRole="VoipLine" ToRole="Manategh" />
+        </EntityType>
+        <Association Name="FK_KhadamatMashiniPersonnels_Manateghs">
+          <End Type="LiveNetworkDocumentationModel.Manategh" Role="Manategh" Multiplicity="0..1" />
+          <End Type="LiveNetworkDocumentationModel.KhadamatMashiniPersonnel" Role="KhadamatMashiniPersonnel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manategh">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="KhadamatMashiniPersonnel">
+              <PropertyRef Name="ManateghId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KhadamatMashiniPersonnels_Semats">
+          <End Type="LiveNetworkDocumentationModel.Semat" Role="Semat" Multiplicity="0..1" />
+          <End Type="LiveNetworkDocumentationModel.KhadamatMashiniPersonnel" Role="KhadamatMashiniPersonnel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Semat">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="KhadamatMashiniPersonnel">
+              <PropertyRef Name="SematId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VoipLines_Manateghs">
+          <End Type="LiveNetworkDocumentationModel.Manategh" Role="Manategh" Multiplicity="1" />
+          <End Type="LiveNetworkDocumentationModel.VoipLine" Role="VoipLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manategh">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VoipLine">
+              <PropertyRef Name="ManateghId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LiveNetworkDocumentationModelStoreContainer" CdmEntityContainer="LiveNetworkDocumentationEntities">
+          <EntitySetMapping Name="KhadamatMashiniPersonnels">
+            <EntityTypeMapping TypeName="LiveNetworkDocumentationModel.KhadamatMashiniPersonnel">
+              <MappingFragment StoreEntitySet="KhadamatMashiniPersonnels">
+                <ScalarProperty Name="ManateghId" ColumnName="ManateghId" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="TelMostaghim" ColumnName="TelMostaghim" />
+                <ScalarProperty Name="TelDakheli" ColumnName="TelDakheli" />
+                <ScalarProperty Name="SematId" ColumnName="SematId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Manateghs">
+            <EntityTypeMapping TypeName="LiveNetworkDocumentationModel.Manategh">
+              <MappingFragment StoreEntitySet="Manateghs">
+                <ScalarProperty Name="PreTelCode" ColumnName="PreTelCode" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CityCenter" ColumnName="CityCenter" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Shakhes" ColumnName="Shakhes" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Semats">
+            <EntityTypeMapping TypeName="LiveNetworkDocumentationModel.Semat">
+              <MappingFragment StoreEntitySet="Semats">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VoipLines">
+            <EntityTypeMapping TypeName="LiveNetworkDocumentationModel.VoipLine">
+              <MappingFragment StoreEntitySet="VoipLines">
+                <ScalarProperty Name="ManateghId" ColumnName="ManateghId" />
+                <ScalarProperty Name="LetterId" ColumnName="LetterId" />
+                <ScalarProperty Name="LetterNumber" ColumnName="LetterNumber" />
+                <ScalarProperty Name="DateCompletelyOperated" ColumnName="DateCompletelyOperated" />
+                <ScalarProperty Name="DateRecievedOnFiberInSite" ColumnName="DateRecievedOnFiberInSite" />
+                <ScalarProperty Name="IsPinged" ColumnName="IsPinged" />
+                <ScalarProperty Name="IpWanMantagheSide" ColumnName="IpWanMantagheSide" />
+                <ScalarProperty Name="HaveVlan" ColumnName="HaveVlan" />
+                <ScalarProperty Name="Vlan" ColumnName="Vlan" />
+                <ScalarProperty Name="FileNumber" ColumnName="FileNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
