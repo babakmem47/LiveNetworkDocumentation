@@ -1,7 +1,35 @@
-﻿@model dynamic
+﻿@model IEnumerable<LiveNetworkDocumentation.Models.Manategh>
 
 @{
     ViewBag.Title = "title";
 }
 
-<h2>title</h2>
+<h2>لیست مناطق</h2>
+<br />
+
+<table class="table table-bordered table-hover table-striped table-fit-to-content" dir="rtl">
+    <thead>
+        <tr>
+            <th class="text-center">شاخص منطقه</th>
+            <th class="text-center">نام منطقه</th>
+            <th class="text-center">شهر</th>
+            <th class="text-center">آدرس</th>
+            <th class="text-center">پیش شماره تلفن</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var mantaghe in Model)
+        {
+            <tr>
+                <td class="text-center">@mantaghe.Shakhes</td>
+                <td class="text-center">@Html.ActionLink(mantaghe.Name, "Edit", "Manategh", new { id = mantaghe.Id }, new { @class = "", data_toggle = "tooltip", title = "ویرایش" })</td>
+                <td class="text-center">@mantaghe.CityCenter</td>
+                <td class="text-center">@mantaghe.Address</td>
+                <td class="text-center">@mantaghe.PreTelCode</td>
+
+            </tr>
+        }
+    </tbody>
+
+</table>

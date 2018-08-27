@@ -1,0 +1,53 @@
+﻿@model LiveNetworkDocumentation.Models.Manategh
+
+@{
+    ViewBag.Title = "title";
+}
+<br/>
+<br/>
+<div class="row">
+    <div class="col-lg-2 col-xs-2"></div>
+    <div class="col-lg-8 col-xs-8">
+        @using (Html.BeginForm("Save", "Manategh"))
+        {
+            <div class="form-group">
+                @Html.LabelFor(m => m.Shakhes)
+                @Html.TextBoxFor(m => m.Shakhes, new { @class = "form-control", @readonly = "readonly" })
+                @Html.ValidationMessageFor(m => m.Shakhes)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name)
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control"})
+                @Html.ValidationMessageFor(m => m.Name)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.CityCenter)
+                @Html.TextBoxFor(m => m.CityCenter, new { @class = "form-control"})
+                @Html.ValidationMessageFor(m => m.CityCenter)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Address)
+                @Html.TextBoxFor(m => m.Address, new { @class = "form-control"})
+                @Html.ValidationMessageFor(m => m.Address)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.PreTelCode)
+                @Html.TextBoxFor(m => m.PreTelCode, new { @class = "form-control"})
+                @Html.ValidationMessageFor(m => m.PreTelCode)
+            </div>
+
+            @Html.HiddenFor(m => m.Id)
+            @Html.AntiForgeryToken()
+
+            <button type="submit" class="btn btn-primary">ذخیره تغییرات</button>
+
+        }
+
+    </div>
+    <div class="col-lg-2 col-xs-2"></div>
+</div>
+   
