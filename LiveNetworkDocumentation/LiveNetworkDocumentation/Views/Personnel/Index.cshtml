@@ -1,0 +1,63 @@
+﻿@model IEnumerable<LiveNetworkDocumentation.Models.KhadamatMashiniPersonnel>
+
+
+@{
+    ViewBag.Title = "title";
+}
+
+<div class="row">
+    <div class="col-lg-1 col-xs-1"></div>
+    <div class="col-lg-10 col-xs-10">
+        <h2>لیست پرسنل خدمات ماشینی</h2>
+    </div>
+    <div class="col-lg-1 col-xs-1"></div>
+</div>
+
+<div class="row">
+    <div class="col-lg-1 col-xs-1"></div>
+    <div class="col-lg-10 col-xs-10">
+        @Html.ActionLink("ایجاد پرسنل جدید", "New", new { Controller = "Personnel" }, new { @class = "btn btn-primary text-right", @dir = "rtl" })
+    </div>
+    <div class="col-lg-1 col-xs-1"></div>
+</div>
+<br/>
+
+<div class="row">
+    <div class="col-lg-1 col-xs-1"></div>
+    <div class="col-lg-10 col-xs-10">
+        <table class="table table-bordered table-hover table-striped table-fit-to-content" dir="rtl">
+            <thead>
+            <tr class="bg-success text-primary">
+                <th class="text-center">ردیف</th>
+                <th class="text-center">نام مسئول خدمات ماشینی</th>
+                <th class="text-center">سمت</th>
+                <th class="text-center">تلفن داخلی</th>
+                <th class="text-center">تلفن مستقیم</th>
+                <th class="text-center">موبایل</th>
+                <th class="text-center">منطقه </th>
+            </tr>
+            </thead>
+
+            <tbody>
+            @{ var i = 1;}
+            @foreach (var personnel in Model)
+            {
+                <tr>
+                    <td class="text-center">@i</td>
+                    <td class="text-center">@Html.ActionLink(personnel.Name, "Edit", "Personnel", new {id = personnel.Id}, new {@class = "", data_toggle = "tooltip", title = "ویرایش"})</td>
+                    <td class="text-center">@personnel.Semat.Name</td>
+                    <td class="text-center">@personnel.TelDakheli</td>
+                    <td class="text-center">@personnel.TelMostaghim</td>
+                    <td class="text-center">@personnel.Mobile</td>
+                    <td class="text-center">@personnel.Manategh.Name</td>
+                </tr>
+                
+                i++; 
+                
+            }
+            </tbody>
+
+        </table>
+    </div>
+    <div class="col-lg-1 col-xs-1"></div>
+</div>

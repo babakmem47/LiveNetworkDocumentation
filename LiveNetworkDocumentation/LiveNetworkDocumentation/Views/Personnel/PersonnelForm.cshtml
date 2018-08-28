@@ -1,0 +1,47 @@
+﻿@model LiveNetworkDocumentation.ViewModels.PersonnelSematMantagheViewModel
+
+@{
+    ViewBag.Title = "title";
+}
+<br/>
+<br/>
+<div class="row">
+    <div class="col-lg-2 col-xs-2"></div>
+    <div class="col-lg-8 col-xs-8">
+        @using (Html.BeginForm("Save", "Manategh"))
+        {
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name)
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control"})
+                @Html.ValidationMessageFor(m => m.Name)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.TelDakheli)
+                @Html.TextBoxFor(m => m.TelDakheli, new { @class = "form-control"})
+                @Html.ValidationMessageFor(m => m.TelDakheli)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.TelMostaghim)
+                @Html.TextBoxFor(m => m.TelMostaghim, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.TelMostaghim)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Mobile)
+                @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Mobile)
+            </div>
+
+
+            @Html.HiddenFor(m => m.Id)
+            @Html.AntiForgeryToken()
+
+            <button type="submit" class="btn btn-primary">ذخیره</button>
+
+        }
+
+    </div>
+    <div class="col-lg-2 col-xs-2"></div>
+</div>
