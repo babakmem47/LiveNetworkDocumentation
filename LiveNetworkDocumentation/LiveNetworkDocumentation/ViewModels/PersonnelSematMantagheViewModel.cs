@@ -28,10 +28,23 @@ namespace LiveNetworkDocumentation.ViewModels
         [Display(Name = "موبایل")]
         public string Mobile { get; set; }
 
-        public Manategh MantagheId { get; set; }
+        public Manategh ManateghId { get; set; }
 
         [Display(Name = "منطقه")]
         public IEnumerable<Manategh> Manateghs { get; set; }
+
+        public string Title
+        {
+            get
+            {
+                if (Id == 0)                               
+                {
+                    return "ایجاد پرسنل جدید";          //    return Id == 0 ? "ایجاد پرسنل جدید" : "ویرایش پرسنل ";
+                }
+
+                return "ویرایش پرسنل ";
+            }
+        }
 
     }
 }

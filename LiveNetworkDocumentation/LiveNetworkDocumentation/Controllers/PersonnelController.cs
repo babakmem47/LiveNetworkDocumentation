@@ -63,10 +63,42 @@ namespace LiveNetworkDocumentation.Controllers
 
         public ActionResult New()
         {
-            var personnelViewModel = new PersonnelSematMantagheViewModel();
+            var personnelViewModel = new PersonnelSematMantagheViewModel()
+            {
+                Semats = _db.Semats.ToList(),
+                Manateghs = _db.Manateghs.ToList()
+            };
 
 
             return View("PersonnelForm", personnelViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Save(KhadamatMashiniPersonnel personnel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("PersonnelForm");
+            }
+
+            if (personnel.Id == 0)
+            {
+                _db.KhadamatMashiniPersonnels.Add(personnel);
+            }
+            else
+            {
+                var personnelInDb = _db.KhadamatMashiniPersonnels.Single(k => k.Id == personnel.Id);
+                personnelInDb.Name = personnel.Name;
+                personnelInDb.SematId = personnel.SematId;
+                personnelInDb.TelDakheli = personnel.TelDakheli;
+                personnelInDb.TelMostaghim = personnel.TelMostaghim;
+                personnelInDb.Mobile = personnel.Mobile;
+                personnelInDb.ManateghId = personnel.ManateghId;
+            }
+
+            _db.SaveChanges();
+
+            return RedirectToAction("Index", "Personnel");
         }
     }
 }

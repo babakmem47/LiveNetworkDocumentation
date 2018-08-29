@@ -4,16 +4,28 @@
     ViewBag.Title = "title";
 }
 <br/>
+<div class="row">
+    <div class="col-lg-2 col-xs-2"></div>
+    <div class="col-lg-8 col-xs-8">
+        <h2>@Model.Title</h2>
+    </div>
+    <div class="col-lg-2 col-xs-2"></div>
+</div>
 <br/>
 <div class="row">
     <div class="col-lg-2 col-xs-2"></div>
     <div class="col-lg-8 col-xs-8">
-        @using (Html.BeginForm("Save", "Manategh"))
+        @using (Html.BeginForm("Save", "Personnel"))
         {
             <div class="form-group">
                 @Html.LabelFor(m => m.Name)
                 @Html.TextBoxFor(m => m.Name, new { @class = "form-control"})
                 @Html.ValidationMessageFor(m => m.Name)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.SematId)
+                @Html.DropDownListFor(m => m.SematId, new SelectList(Model.Semats, "Id", "Name"), "انتخاب سِمَت", new { @class = "form-control"})
             </div>
 
             <div class="form-group">
@@ -33,6 +45,12 @@
                 @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Mobile)
             </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.ManateghId)
+                @Html.DropDownListFor(m => m.ManateghId, new SelectList(Model.Manateghs, "Id", "Name"), "انتخاب منطقه", new { @class = "form-control" })
+            </div>
+
 
 
             @Html.HiddenFor(m => m.Id)
