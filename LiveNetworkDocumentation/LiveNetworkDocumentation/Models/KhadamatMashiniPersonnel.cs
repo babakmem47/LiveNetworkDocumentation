@@ -14,7 +14,7 @@ namespace LiveNetworkDocumentation.Models
     
     public partial class KhadamatMashiniPersonnel
     {
-        public short Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public Nullable<byte> SematId { get; set; }
         public string TelDakheli { get; set; }

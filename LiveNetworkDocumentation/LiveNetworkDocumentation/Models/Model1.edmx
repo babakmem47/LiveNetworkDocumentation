@@ -9,11 +9,11 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SematId" Type="tinyint" />
-          <Property Name="TelDakheli" Type="nchar" MaxLength="20" />
-          <Property Name="TelMostaghim" Type="nchar" MaxLength="40" />
+          <Property Name="TelDakheli" Type="nchar" MaxLength="30" />
+          <Property Name="TelMostaghim" Type="nchar" MaxLength="50" />
           <Property Name="Mobile" Type="nchar" MaxLength="11" />
           <Property Name="ManateghId" Type="tinyint" />
         </EntityType>
@@ -131,11 +131,11 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SematId" Type="Byte" />
-          <Property Name="TelDakheli" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
-          <Property Name="TelMostaghim" Type="String" MaxLength="40" FixedLength="true" Unicode="true" />
+          <Property Name="TelDakheli" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="TelMostaghim" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="Mobile" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
           <Property Name="ManateghId" Type="Byte" />
           <NavigationProperty Name="Manategh" Relationship="LiveNetworkDocumentationModel.FK_KhadamatMashiniPersonnels_Manateghs" FromRole="KhadamatMashiniPersonnel" ToRole="Manategh" />

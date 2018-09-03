@@ -9,26 +9,49 @@ namespace LiveNetworkDocumentation.ViewModels
 {
     public class PersonnelSematMantagheViewModel
     {
-        public byte Id { get; set; }
+        public PersonnelSematMantagheViewModel()
+        {
+            Id = 0;
+        }
 
+        public PersonnelSematMantagheViewModel(KhadamatMashiniPersonnel personnel)
+        {
+            Id = personnel.Id;
+            SematId = personnel.SematId;
+            ManateghId = personnel.ManateghId;
+            Name = personnel.Name;
+            TelDakheli = personnel.TelDakheli;
+            TelMostaghim = personnel.TelMostaghim;
+            Mobile = personnel.Mobile;
+        }
+
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "این فیلد نباید خالی باشد")]
         [Display(Name = "نام مسئول خدمات ماشینی")]
         public string Name { get; set; }
 
-        public Semat SematId { get; set; }
+        //[Required(ErrorMessage = "انتخاب سِمَت اجباری است")]
+        public byte? SematId { get; set; }
 
         [Display(Name = "سِمَت")]
         public IEnumerable<Semat> Semats { get; set; }
 
         [Display(Name = "تلفن داخلی")]
+        [StringLength(19, ErrorMessage = "حداکثر طول مجاز 30 کاراکتر است")]
         public string TelDakheli { get; set; }
 
         [Display(Name = "تلفن مستقیم")]
+        [StringLength(30)]
         public string TelMostaghim { get; set; }
 
+        [RegularExpression("^[0-9]*$", ErrorMessage = " فقط ورود ارقام مجاز می باشد")]
+        [StringLength(11, MinimumLength = 11, ErrorMessage = "شماره موبایل باید یازده رقم باشد")]
         [Display(Name = "موبایل")]
         public string Mobile { get; set; }
 
-        public Manategh ManateghId { get; set; }
+        //[Required(ErrorMessage = "انتخاب منطقه اجباری است")]
+        public byte? ManateghId { get; set; }
 
         [Display(Name = "منطقه")]
         public IEnumerable<Manategh> Manateghs { get; set; }

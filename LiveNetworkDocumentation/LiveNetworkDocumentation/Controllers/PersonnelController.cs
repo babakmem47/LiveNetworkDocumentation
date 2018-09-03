@@ -31,32 +31,22 @@ namespace LiveNetworkDocumentation.Controllers
             return View(personelList);
         }
 
-        public ActionResult Edit(KhadamatMashiniPersonnel personnel)
+        public ActionResult Edit(int id)
         {
-            if (!ModelState.IsValid)
+            var personnel = _db.KhadamatMashiniPersonnels.SingleOrDefault(k => k.Id == id);
+            if (personnel == null)
             {
-                return View("PersonnelForm");
+                return HttpNotFound();
             }
 
-            if (personnel.Id == 0)
+            var personnelViewModel = new PersonnelSematMantagheViewModel(personnel)
             {
-                _db.KhadamatMashiniPersonnels.Add(personnel);
-            }
-            else
-            {
-                var personnelInDb = _db.KhadamatMashiniPersonnels.Single(k => k.Id == personnel.Id);
-                personnelInDb.Name = personnel.Name;
-                personnelInDb.SematId = personnel.SematId;
-                personnelInDb.TelDakheli = personnel.TelDakheli;
-                personnelInDb.TelMostaghim = personnel.TelMostaghim;
-                personnelInDb.Mobile = personnel.Mobile;
-                personnelInDb.ManateghId = personnel.ManateghId;
+                Semats = _db.Semats.ToList(),
+                Manateghs = _db.Manateghs.ToList()
+                
+            };
 
-            }
-
-            _db.SaveChanges();
-
-            return RedirectToAction("Index");
+            return View("PersonnelForm", personnelViewModel);
 
         }
 
@@ -74,16 +64,27 @@ namespace LiveNetworkDocumentation.Controllers
         }
 
         [HttpPost]
-        public ActionResult Save(KhadamatMashiniPersonnel personnel)
+        public ActionResult Save(PersonnelSematMantagheViewModel personnel)
         {
             if (!ModelState.IsValid)
             {
-                return View("PersonnelForm");
+                personnel.Semats = _db.Semats.ToList();
+                personnel.Manateghs = _db.Manateghs.ToList();
+               return View("PersonnelForm", personnel);
             }
 
             if (personnel.Id == 0)
             {
-                _db.KhadamatMashiniPersonnels.Add(personnel);
+                var khMashini = new KhadamatMashiniPersonnel();
+                khMashini.Id = personnel.Id;
+                khMashini.Name = personnel.Name;
+                khMashini.SematId = personnel.SematId;
+                khMashini.TelDakheli = personnel.TelDakheli;
+                khMashini.TelMostaghim = personnel.TelMostaghim;
+                khMashini.Mobile = personnel.Mobile;
+                khMashini.ManateghId = personnel.ManateghId;
+
+                _db.KhadamatMashiniPersonnels.Add(khMashini);
             }
             else
             {
