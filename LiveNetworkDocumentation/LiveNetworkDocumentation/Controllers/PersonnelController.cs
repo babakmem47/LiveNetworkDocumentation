@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using AutoMapper;
 using LiveNetworkDocumentation.Models;
 using LiveNetworkDocumentation.ViewModels;
 
@@ -64,6 +65,7 @@ namespace LiveNetworkDocumentation.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(PersonnelSematMantagheViewModel personnel)
         {
             if (!ModelState.IsValid)
@@ -76,25 +78,27 @@ namespace LiveNetworkDocumentation.Controllers
             if (personnel.Id == 0)
             {
                 var khMashini = new KhadamatMashiniPersonnel();
-                khMashini.Id = personnel.Id;
-                khMashini.Name = personnel.Name;
-                khMashini.SematId = personnel.SematId;
-                khMashini.TelDakheli = personnel.TelDakheli;
-                khMashini.TelMostaghim = personnel.TelMostaghim;
-                khMashini.Mobile = personnel.Mobile;
-                khMashini.ManateghId = personnel.ManateghId;
+                Mapper.Map<PersonnelSematMantagheViewModel, KhadamatMashiniPersonnel>(personnel, khMashini);
+//                khMashini.Id = personnel.Id;
+//                khMashini.Name = personnel.Name;
+//                khMashini.SematId = personnel.SematId;
+//                khMashini.TelDakheli = personnel.TelDakheli;
+//                khMashini.TelMostaghim = personnel.TelMostaghim;
+//                khMashini.Mobile = personnel.Mobile;
+//                khMashini.ManateghId = personnel.ManateghId;
 
                 _db.KhadamatMashiniPersonnels.Add(khMashini);
             }
             else
             {
                 var personnelInDb = _db.KhadamatMashiniPersonnels.Single(k => k.Id == personnel.Id);
-                personnelInDb.Name = personnel.Name;
-                personnelInDb.SematId = personnel.SematId;
-                personnelInDb.TelDakheli = personnel.TelDakheli;
-                personnelInDb.TelMostaghim = personnel.TelMostaghim;
-                personnelInDb.Mobile = personnel.Mobile;
-                personnelInDb.ManateghId = personnel.ManateghId;
+                Mapper.Map<PersonnelSematMantagheViewModel, KhadamatMashiniPersonnel>(personnel, personnelInDb);
+//                personnelInDb.Name = personnel.Name;
+//                personnelInDb.SematId = personnel.SematId;
+//                personnelInDb.TelDakheli = personnel.TelDakheli;
+//                personnelInDb.TelMostaghim = personnel.TelMostaghim;
+//                personnelInDb.Mobile = personnel.Mobile;
+//                personnelInDb.ManateghId = personnel.ManateghId;
             }
 
             _db.SaveChanges();
