@@ -116,7 +116,7 @@ namespace LiveNetworkDocumentation.Models
     public class SematMetadata
     {
 
-        [Required]
+        //[Required]      // comment it because of an error in API create and update : "Required property 'Id' not found in JSON Path......"
         public byte Id { get; set; }
 
         [Required]
