@@ -48,16 +48,16 @@ namespace LiveNetworkDocumentation.Controllers.Api
 
         // POST     Api/Personnels/         Create a personnel
         [HttpPost]
-        public PersonnelDto CreatePersonnel(PersonnelDto personnelDto)
+        public IHttpActionResult CreatePersonnel(PersonnelDto personnelDto)
         {
             if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                return BadRequest();
 
             var personnel = Mapper.Map<PersonnelDto, KhadamatMashiniPersonnel>(personnelDto);
             _db.KhadamatMashiniPersonnels.Add(personnel);
             _db.SaveChanges();
             personnelDto.Id = personnel.Id;     // assign generated id by DB for personnel to Dto object
-            return personnelDto;
+            return Created(new Uri(Request.RequestUri + "/" + personnel.Id), personnelDto);
         }
 
         // PUT      Api/Personnels/id       Update a personnel
