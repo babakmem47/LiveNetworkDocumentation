@@ -27,23 +27,24 @@ namespace LiveNetworkDocumentation.Controllers.Api
 
 
         // GET      Api/Personnels/         Read All
-        public IEnumerable<PersonnelDto> GetPersonnel()
+        public IHttpActionResult GetPersonnel()
         {
-            return _db.KhadamatMashiniPersonnels.ToList().Select(Mapper.Map<KhadamatMashiniPersonnel, PersonnelDto>);
+            var personnelDtosList = _db.KhadamatMashiniPersonnels.ToList().Select(Mapper.Map<KhadamatMashiniPersonnel, PersonnelDto>);
+            return Ok(personnelDtosList);
         }
 
         // GET      Api/Personnels/id       Read one
-        public PersonnelDto GetPersonnel(int id)
+        public IHttpActionResult GetPersonnel(int id)
         {
             var personnel = _db.KhadamatMashiniPersonnels.SingleOrDefault(k => k.Id == id);
             if (personnel == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return NotFound();
                     
 //            var personnelDto = new PersonnelDto();
 //            Mapper.Map(personnel, personnelDto);
 //            return personnelDto;
 
-            return Mapper.Map<KhadamatMashiniPersonnel, PersonnelDto>(personnel);
+            return Ok(Mapper.Map<KhadamatMashiniPersonnel, PersonnelDto>(personnel));
         }
 
         // POST     Api/Personnels/         Create a personnel
@@ -62,33 +63,34 @@ namespace LiveNetworkDocumentation.Controllers.Api
 
         // PUT      Api/Personnels/id       Update a personnel
         [HttpPut]
-        public PersonnelDto UpdatePersonnel(int id, PersonnelDto personnelDto)
+        public IHttpActionResult UpdatePersonnel(int id, PersonnelDto personnelDto)
         {
             if (!ModelState.IsValid)
-            {
-                throw new HttpResponseException(HttpStatusCode.BadRequest);                
-            }
+                return BadRequest();
 
             var personnelInDb = _db.KhadamatMashiniPersonnels.SingleOrDefault(k => k.Id == id);
             if (personnelInDb == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return NotFound();
 
             Mapper.Map(personnelDto, personnelInDb);
             _db.SaveChanges();
-            return personnelDto;
+
+            return Ok();
         }
 
 
         // DELETE   Api/Personnels/id         Delete a personnel
         [HttpDelete]
-        public void DeletePersonnel(int id)
+        public IHttpActionResult DeletePersonnel(int id)
         {
             var personnelInDb = _db.KhadamatMashiniPersonnels.SingleOrDefault(k => k.Id == id);
             if (personnelInDb == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return NotFound();
 
             _db.KhadamatMashiniPersonnels.Remove(personnelInDb);
             _db.SaveChanges();
+
+            return Ok();
         }
     }
 }
