@@ -27,9 +27,7 @@ namespace LiveNetworkDocumentation.Controllers
         // GET: Personnel
         public ActionResult Index()
         {
-            var personelList = _db.KhadamatMashiniPersonnels.Include(k => k.Semat).Include(k => k.Manategh).ToList();
-
-            return View(personelList);
+            return View();
         }
 
         public ActionResult Edit(int id)

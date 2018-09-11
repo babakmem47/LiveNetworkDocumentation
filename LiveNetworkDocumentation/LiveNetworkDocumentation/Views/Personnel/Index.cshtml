@@ -41,38 +41,6 @@
             </thead>
 
             <tbody>
-            @{ var i = 1;}
-            @foreach (var personnel in Model)
-            {
-                <tr>
-                    <td class="text-center">@i</td>
-                    <td class="text-center">@Html.ActionLink(personnel.Name, "Edit", "Personnel", new {id = personnel.Id}, new {@class = "", data_toggle = "tooltip", title = "ویرایش"})</td>
-                    @if (personnel.SematId == null)
-                    {
-                        <td class="text-center">@personnel.SematId</td>
-                    }
-                    else
-                    {
-                        <td class="text-center">@personnel.Semat.Name</td>
-                    }
-                    @if (personnel.ManateghId == null)
-                    {
-                        <td class="text-center">@personnel.ManateghId</td>
-                    }
-                    else
-                    {
-                        <td class="text-center">@personnel.Manategh.Name</td>
-                    }
-                    <td class="text-center">@personnel.TelDakheli</td>
-                    <td class="text-center">@personnel.TelMostaghim</td>
-                    <td class="text-center">@personnel.Mobile</td>
-                    <td class="text-center">@Html.ActionLink("ویرایش", "Edit", "Personnel", new {id = personnel.Id}, new {@class = "", data_toggle = "tooltip", title = "ویرایش"})</td>
-                    <td class="text-center"><button data-personnel-id="@personnel.Id" class="btn-link js-delete">حذف</button></td>
-                </tr>
-                
-                i++; 
-                
-            }
             </tbody>
 
         </table>
@@ -84,7 +52,54 @@
 {
     <script>
         $(document).ready(function () {
-            $("#tableOfPersonnels").DataTable();
+            var i = 1;
+            $("#tableOfPersonnels").DataTable({
+                ajax: {
+                    url: "/api/personnels",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return i++;
+                        }
+                    },
+                    {
+                        data: "name",
+                        render: function(data, type, personnel) {
+                            return "<a href='/Personnel/Edit/'" + personnel.id + "'>" + personnel.name + "</a>";
+                        }
+                    },
+                    {
+                        data: "sematId"
+                    },
+                    {
+                        data: "manateghId"
+                    },
+                    {
+                        data: "telDakheli"
+                    },
+                    {
+                        data: "telMostaghim"
+                    },
+                    {
+                        data: "mobile"
+                    },
+                    {
+                        data: "id",
+                        render: function(data, type, personnel) {
+                            return "<a href='/Personnel/Edit/" + personnel.id + "'>" + "ویرایش" + "</a>";
+                        }
+                    },
+                    {
+                        data: "id",
+                        render: function(data) {
+                            return "<button class='btn-link js-delete' data-personnel-id=" + data + "'>" + "حذف" + "</button>";
+                        } 
+                    }
+                ]
+            });
 
             $("#tableOfPersonnels").on("click", ".js-delete", function () {
                 var button = $(this);
