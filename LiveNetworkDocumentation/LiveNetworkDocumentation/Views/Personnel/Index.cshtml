@@ -54,10 +54,18 @@
         $(document).ready(function () {
             var i = 1;
             $("#tableOfPersonnels").DataTable({
+
+                "pageLength": 30,
+
+                "columnDefs": [
+                    { "className": "text-center", "targets": "_all" }
+                ],
+
                 ajax: {
                     url: "/api/personnels",
                     dataSrc: ""
                 },
+                
                 columns: [
                     {
                         data: "id",
