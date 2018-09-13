@@ -53,9 +53,36 @@
     <script>
         $(document).ready(function () {
             var i = 1;
-            $("#tableOfPersonnels").DataTable({
+            var table =  $("#tableOfPersonnels").DataTable({
 
                 "pageLength": 30,
+
+                "oLanguage": {
+                    "sSearch": "جستجو  ",
+                    "sSearchPlaceholder": "یه چیزی بنویس ...",
+                    "sLengthMenu": "نمایش  _MENU_  رکورد در جدول",
+                    "decimal": "",
+                    "sEmptyTable": "هیچ داده قابل دسترسی در جدول یافت نشد",
+                    "sInfo": "نمایش _START_ تا _END_ از _TOTAL_ ورودی",
+                    "sInfoEmpty": "نمایش 0 تا 0 از صفر ورودی",
+                    "sInfoFiltered": "(فیلتر شده از _MAX_ کل وردی ها)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "sLoadingRecords": "بارگذاری ...",
+                    "sProcessing": "پردازش ...",
+                    "sZeroRecords": "هیچ رکوردی که مطابقت داشته باشد یافت نشد",
+                    "oPaginate": {
+                        "sFirst": "اول",
+                        "sLast": "آخر",
+                        "sNext": "بعدی",
+                        "sPrevious": "قبلی"
+                    }
+                },
+
+                "sDom" : 
+                    "<'row'<'col-sm-6'f><'col-sm-6'l>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
 
                 "columnDefs": [
                     { "className": "text-center", "targets": "_all" }
@@ -97,13 +124,13 @@
                     {
                         data: "id",
                         render: function(data, type, personnel) {
-                            return "<a href='/Personnel/Edit/" + personnel.id + "'>" + "ویرایش" + "</a>";
+                            return "<a href='/Personnel/Edit/" + personnel.id + "'>" + "<span class='glyphicon glyphicon-edit' aria-hidden='true'></span>" + "</a>";
                         }
                     },
                     {
                         data: "id",
                         render: function(data) {
-                            return "<button class='btn-link js-delete' data-personnel-id=" + data + "'>" + "حذف" + "</button>";
+                            return "<button class='btn-link js-delete' data-personnel-id=" + data + "> <span class='glyphicon glyphicon-remove-circle'></span>" + "</button>";
                         } 
                     }
                 ]
@@ -119,7 +146,7 @@
                                 url: "/api/personnels/" + button.attr("data-personnel-id"),
                                 method: "DELETE",
                                 success: function () {
-                                    button.parents("tr").remove();
+                                    table.row(button.parents("tr")).remove().draw();
                                 }
                             });
                         }
