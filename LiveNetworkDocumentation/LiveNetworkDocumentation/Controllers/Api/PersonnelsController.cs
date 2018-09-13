@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -29,7 +30,7 @@ namespace LiveNetworkDocumentation.Controllers.Api
         // GET      Api/Personnels/         Read All
         public IHttpActionResult GetPersonnel()
         {
-            var personnelDtosList = _db.KhadamatMashiniPersonnels.ToList().Select(Mapper.Map<KhadamatMashiniPersonnel, PersonnelDto>);
+            var personnelDtosList = _db.KhadamatMashiniPersonnels.Include(s => s.Semat).Include(m => m.Manategh).ToList().Select(Mapper.Map<KhadamatMashiniPersonnel, PersonnelDto>);
             return Ok(personnelDtosList);
         }
 

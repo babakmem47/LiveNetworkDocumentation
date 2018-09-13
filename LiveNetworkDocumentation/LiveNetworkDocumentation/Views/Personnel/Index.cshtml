@@ -107,10 +107,16 @@
                         }
                     },
                     {
-                        data: "sematId"
+                        data: "semat",
+                        render: function(data) {
+                            return (data) ? data.name : null;
+                        }
                     },
                     {
-                        data: "manateghId"
+                        data: "manategh",
+                        render: function(data) {
+                            return (data) ? data.name : null;
+                        }
                     },
                     {
                         data: "telDakheli"

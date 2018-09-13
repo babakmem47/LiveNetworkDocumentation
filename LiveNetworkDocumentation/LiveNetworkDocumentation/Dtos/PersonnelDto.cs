@@ -14,7 +14,7 @@ namespace LiveNetworkDocumentation.Dtos
         [Required]
         public string Name { get; set; }
 
-        public Semat Semat { get; set; }
+        public SematDto Semat { get; set; }
 
         public byte? SematId { get; set; }
 
@@ -24,7 +24,7 @@ namespace LiveNetworkDocumentation.Dtos
 
         public string Mobile { get; set; }
 
-        public Manategh Manategh { get; set; }
+        public ManateghDto Manategh { get; set; }
 
         public byte? ManateghId { get; set; }
     }

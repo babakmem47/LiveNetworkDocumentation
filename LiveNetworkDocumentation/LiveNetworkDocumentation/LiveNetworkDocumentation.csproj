@@ -184,7 +184,9 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManateghController.cs" />
     <Compile Include="Controllers\PersonnelController.cs" />
+    <Compile Include="Dtos\ManateghDto.cs" />
     <Compile Include="Dtos\PersonnelDto.cs" />
+    <Compile Include="Dtos\SematDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

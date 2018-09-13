@@ -21,6 +21,8 @@ namespace LiveNetworkDocumentation.App_Start
 
             // Domain to Dto
             Mapper.CreateMap<KhadamatMashiniPersonnel, PersonnelDto>();
+            Mapper.CreateMap<Semat, SematDto>();
+            Mapper.CreateMap<Manategh, ManateghDto>();
 
             // Dto to Domain
             Mapper.CreateMap<PersonnelDto, KhadamatMashiniPersonnel>()
