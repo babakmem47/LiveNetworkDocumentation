@@ -32,9 +32,9 @@ namespace LiveNetworkDocumentation.ViewModels
         public string Name { get; set; }
 
         //[Required(ErrorMessage = "انتخاب سِمَت اجباری است")]
+        [Display(Name = "سِمَت")]
         public byte? SematId { get; set; }
 
-        [Display(Name = "سِمَت")]
         public IEnumerable<Semat> Semats { get; set; }
 
         [Display(Name = "تلفن داخلی")]
@@ -51,9 +51,9 @@ namespace LiveNetworkDocumentation.ViewModels
         public string Mobile { get; set; }
 
         //[Required(ErrorMessage = "انتخاب منطقه اجباری است")]
+        [Display(Name = "منطقه")]
         public byte? ManateghId { get; set; }
 
-        [Display(Name = "منطقه")]
         public IEnumerable<Manategh> Manateghs { get; set; }
 
         public string Title

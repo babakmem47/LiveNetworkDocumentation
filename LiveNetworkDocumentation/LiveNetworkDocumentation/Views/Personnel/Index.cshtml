@@ -96,14 +96,14 @@
                 columns: [
                     {
                         data: "id",
-                        render: function (data) {
+                        render: function () {
                             return i++;
                         }
                     },
                     {
                         data: "name",
                         render: function(data, type, personnel) {
-                            return "<a href='/Personnel/Edit/'" + personnel.id + "'>" + personnel.name + "</a>";
+                            return "<a href='/Personnel/Edit/" + personnel.id + "'>" + personnel.name + "</a>";
                         }
                     },
                     {
@@ -136,7 +136,7 @@
                     {
                         data: "id",
                         render: function(data) {
-                            return "<button class='btn-link js-delete' data-personnel-id=" + data + "> <span class='glyphicon glyphicon-remove-circle'></span>" + "</button>";
+                            return "<button class='btn-link js-delete' data-personnel-id=" + data + "> <span class='glyphicon glyphicon-remove'></span>" + "</button>";
                         } 
                     }
                 ]
